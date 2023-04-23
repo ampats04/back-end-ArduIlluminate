@@ -1,5 +1,5 @@
 var qs = require('querystring');
-const User = require("../apibackend/models/user_model.js");
+const User = require("./models/user_model");
 
 
 

@@ -2,8 +2,7 @@ const express = require('express');
 const app = express();
 
 
-const userPost = require('./http/post/user_post')
-const userRoutes = require('../apibackend/routes/user_routes')
+const userRoutes = require('./routes/user_routes');
 //settings
 app.set('port', process.env.PORT || 8000);
 
