@@ -1,13 +1,11 @@
-POST http://localhost:8000/api/users/ HTTP/1.1
+POST http://localhost:8000/api/users/add HTTP/1.1
 Content-Type: application/json 
 
 {
-
-     "name" : "Michael Oliva Tonilon",
-     "birthdate" :"October 69, 2001",
-     "email": "mtonilon@oten.com",
-     "username": "otin123",
-     "password" : "oten123"
+     "user_id" : "khkh",
+     "name" : "Jeremy Andy F. Ampatin",
+     "birthdate" :"October 4, 2001",
+     "username": "ampats11"
 }
 
 

@@ -3,11 +3,10 @@ const db_con = require("../database/database");
 
 const userModel = function(user){
 
+    this.user_id = user.user_id;
     this.name = user.name;
     this.birthdate = user.birthdate;
-    this.email = user.email;
     this.username = user.username;
-    this.password = user.password;
 };
 
 
@@ -45,8 +44,8 @@ userModel.getAll = (user_id,result) => {
 userModel.updateById = (user_id, user, result) => {
 
     db_con.query(
-        "UPDATE users SET name = ?, birthdate = ?, email = ?, username = ?, password = ? WHERE user_id = ?",
-        [user.name, user.birthdate, user.email, user.username, user.password, user_id],
+        "UPDATE users SET name = ?, birthdate = ?, username = ? WHERE user_id = ?",
+        [user.name, user.birthdate, user.username, user_id],
         (err,res) => {
             if(err){
                 console.log("error: ", err);
@@ -58,7 +57,7 @@ userModel.updateById = (user_id, user, result) => {
                 result({kind: "not_found"}, null);
                 return;
             }
-            console.log("updated tasl: ", {user_id: user_id, ...user});
+            console.log("updated User: ", {user_id: user_id, ...user});
             result(null, {user_id: user_id, ...user});
         }
     );
@@ -77,7 +76,7 @@ userModel.remove = (user_id, result) => {
             result({kind: "not found"}, null);
             return;
         }
-        console.log("deleted task with id: " , id);
+        console.log("deleted task with id: " , user_id);
         result(null,res);
     })
 }

@@ -17,20 +17,19 @@ exports.create = (req, res) => {
     }
 
     const user = new User({
+        user_id: req.body.user_id,
         name: req.body.name,
-       birthdate: req.body.birthdate,
-        email: req.body.email,
+        birthdate: req.body.birthdate,
         username: req.body.username,
-        password: req.body.password,
 
     });
 
     User.create(user, (err,data) => {
         if(err)
-            res.status(500).send({
+            res.status(400).json({
                 message: err.message || "Some error occured while creating the Task."
             });
-        else res.send(data);
+        else res.status(201).json(data);
         
     });
 };

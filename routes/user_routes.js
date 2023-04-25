@@ -5,9 +5,9 @@ const userController = require('../controller');
 
 const router = express.Router();
 
-router.post('/', userController.create);
+router.post('/add', userController.create);
 
-router.get('/', userController.findAll);
+router.get('/retrieve', userController.findAll);
 
 router.put('/update', userController.update);
 
