@@ -28,7 +28,7 @@ userModel.getAll = (user_id,result) => {
     let query = "SELECT * FROM users";
 
     if(user_id){
-        query += `WHERE user_id LIKE '%${user_id}%'`;
+        query += ` WHERE user_id LIKE '%${user_id}%'`;
     }
     db_con.query(query, (err,res) => {
         if(err){
@@ -37,7 +37,7 @@ userModel.getAll = (user_id,result) => {
             return;
         }
         console.log("Users: ", res);
-        return(null, err);
+        result(null, res);
     });
 };
 

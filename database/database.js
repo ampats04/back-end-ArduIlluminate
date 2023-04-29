@@ -4,7 +4,7 @@ const mysqlConnection = mysql.createConnection({
 
     host: 'localhost',
     user: 'root',
-    password: '123456789',
+    password: 'mtonilon',
     database: 'ardudb',
     port: 3306,
 
