@@ -7,7 +7,6 @@ exports.create = (req, res) => {
 
     console.log(req.body);
 
-    //validate
 
     if(!req.body){
         res.status(400).send({

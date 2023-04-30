@@ -57,7 +57,7 @@ userModel.updateById = (user_id, user, result) => {
                 result({kind: "not_found"}, null);
                 return;
             }
-            console.log("updated tasl: ", {user_id: user_id, ...user});
+            console.log("updated user: ", {user_id: user_id, ...user});
             result(null, {user_id: user_id, ...user});
         }
     );
