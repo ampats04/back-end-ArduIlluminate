@@ -44,8 +44,8 @@ userModel.getAll = (user_id,result) => {
 userModel.updateById = (user_id, user, result) => {
 
     db_con.query(
-        "UPDATE users SET user_id = ?, name = ?, birthdate = ?, email = ?, username = ?, password = ? WHERE user_id = ?",
-        [ user.name, user.birthdate, user.email, user.username, user.password, user_id],
+        "UPDATE users SET  name = ?, birthdate = ?, username = ? WHERE user_id = ?",
+        [ user.name, user.birthdate, user.username, user_id],
         (err,res) => {
             if(err){
                 console.log("error: ", err);

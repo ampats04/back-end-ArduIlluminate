@@ -1,8 +1,8 @@
-POST http://localhost:8000/api/light/ HTTP/1.1
-Content-Type: application/json 
+POST http://localhost:8000/api/users/add HTTP/1.1
+Content-Type: application/json
 
 {
-     "user_id" : "khkh",
+     "user_id" : "asdad",
      "name" : "Jeremy Andy F. Ampatin",
      "birthdate" :"October 4, 2001",
      "username": "ampats11"
