@@ -9,7 +9,7 @@ router.post('/', lightController.create);
 
 router.get('/', lightController.findAll);
 
-router.put('/update', lightController.update);
+router.put('/update/:lightId', lightController.update);
 
 router.delete('/delete', lightController.delete);
 

@@ -45,8 +45,8 @@ lightModel.getAll = (light_id,result) => {
 lightModel.updateById = (light_id, light, result) => {
 
     db_con.query(
-        "UPDATE lights SET model = ?, manufacturer = ?, install_date = ?, power_cons = ?  WHERE light_id = ?",
-        [ light.model, light.manufacturer, light.install_date, light.power_cons, light_id],
+        "UPDATE lights SET  model = ?, manufacturer = ?, install_date = ?, power_cons = ? WHERE light_id = ?",
+        [ light.model, light.manufacturer, light.install_date,light.power_cons, light_id],
         (err,res) => {
             if(err){
                 console.log("error: ", err);
@@ -58,8 +58,8 @@ lightModel.updateById = (light_id, light, result) => {
                 result({kind: "not_found"}, null);
                 return;
             }
-            console.log("updated light: ", {light_id: light_id, ...light});
-            result(null, {light_id: light_id, ...light});
+            console.log("updated lights: ", {light_id: light_id, ...light});
+            return(null, {light_id: light_id, ...light});
         }
     );
 }
