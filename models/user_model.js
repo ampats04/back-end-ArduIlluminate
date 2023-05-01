@@ -37,7 +37,7 @@ userModel.getAll = (user_id,result) => {
             return;
         }
         console.log("Users: ", res);
-        result(null, res);
+        return(null, res);
     });
 };
 
@@ -58,7 +58,7 @@ userModel.updateById = (user_id, user, result) => {
                 return;
             }
             console.log("updated user: ", {user_id: user_id, ...user});
-            result(null, {user_id: user_id, ...user});
+            return(null, {user_id: user_id, ...user});
         }
     );
 }

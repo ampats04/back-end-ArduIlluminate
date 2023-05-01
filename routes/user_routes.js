@@ -9,7 +9,7 @@ router.post('/add', userController.create);
 
 router.get('/retrieve', userController.findAll);
 
-router.put('/update', userController.update);
+router.put('/update/:userId', userController.update);
 
 router.delete('/delete', userController.delete);
 

@@ -45,33 +45,28 @@ exports.findAll = (req,res) => {
     });
 };
 
-exports.update = (req,res) => {
-    if(!req.body){
-        res.status(400).send({
-            message: "Content can not be empty!"
+exports.update = async (req, res) => {
+    try {
+      const { userId } = req.params;
+  
+      const updatedUser = await User.updateById(userId, req.body);
+  
+      if (updatedUser.affectedRows === 0) {
+        res.status(404).send({
+          message: `User with id ${userId} not found`,
         });
+      } else {
+        res.status(200).send({
+          message: `User with id ${userId} updated successfully`,
+        });
+      }
+    } catch (err) {
+      res.status(500).send({
+        message: err.message || "Some error occurred while updating the user.",
+      });
     }
+  };
 
-    console.log(req.body);
-    User.updateById(
-        req.query.user_id,
-        new User(req.body),
-        (err,data) => {
-            if(err){
-                if (err.kind == "not found"){
-                    res.status(404).send({
-                        message: 'Not found Tutorial with id ${req.query.user_id}.'
-                    });
-                } else{
-                    res.status(500).send({
-                        message: "Error updating tutorial with id" + req.query.user_id
-                    });
-                }
-               
-            } else res.send(data);
-        }
-    );
-};
 
 exports.delete = (req,res) => {
     User.remove(req.query.id, (err,data) => {
