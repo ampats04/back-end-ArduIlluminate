@@ -34,20 +34,9 @@ exports.create = (req, res) => {
     });
 };
 
-// exports.findAll = async (req, res) =>  {
-//     try {
-//       const userId = req.params.userId;
-//       const user = await User.getAll(userId);
-//       res.send(user);
-//     } catch (err) {
-//       console.error(err);
-//       res.status(500).send({
-//         message: err.message || "Some error occurred while retrieving user."
-//       });
-//     }
-//   };
 
   exports.findAll = async (req,res) => {
+
     const title = await req.query.name;
     User.getAll(title,(err,data) => {
         if(err) res.status(500).send({
@@ -56,6 +45,8 @@ exports.create = (req, res) => {
         else res.send(data);
     })
   }
+
+
 
 exports.update = async (req, res) => {
     try {

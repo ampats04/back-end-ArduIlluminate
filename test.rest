@@ -1,4 +1,4 @@
-PUT http://localhost:8000/api/users/update/name=iuSDPfyxwTQiwfrBsRlivOMo2cz1 HTTP/1.1
+POST http://localhost:8000/api/users/add HTTP/1.1
 Content-Type: application/json
 
 {
