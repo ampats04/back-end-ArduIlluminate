@@ -32,12 +32,14 @@ userModel.getAll = (user_id,result) => {
     }
     db_con.query(query, (err,res) => {
         if(err){
-            console.log("error: ", err);
+            console.log("Error fetching users: ", err);
             result(null,err);
             return;
         }
-        console.log("Users: ", res);
-        return(null, res);
+        console.log("Fetched Users: ", res);
+        result(null, res);
+       
+       
     });
 };
 

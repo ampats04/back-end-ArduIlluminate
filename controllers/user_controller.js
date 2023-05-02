@@ -34,16 +34,28 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findAll = (req,res) => {
-    const title = req.query.name;
-    User.getAll(title, (err,data) => {
-        if(err)
-            res.status(500).send({
-                message: err.message || "Some error occured while retrieving tasks."
-            });
+// exports.findAll = async (req, res) =>  {
+//     try {
+//       const userId = req.params.userId;
+//       const user = await User.getAll(userId);
+//       res.send(user);
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).send({
+//         message: err.message || "Some error occurred while retrieving user."
+//       });
+//     }
+//   };
+
+  exports.findAll = async (req,res) => {
+    const title = await req.query.name;
+    User.getAll(title,(err,data) => {
+        if(err) res.status(500).send({
+            message: err.message || "sme error"
+        });
         else res.send(data);
-    });
-};
+    })
+  }
 
 exports.update = async (req, res) => {
     try {
