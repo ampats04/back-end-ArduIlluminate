@@ -34,18 +34,36 @@ exports.create = (req, res) => {
     });
 };
 
-
-  exports.findAll = async (req,res) => {
-
-    const title = await req.query.name;
-    User.getAll(title,(err,data) => {
-        if(err) res.status(500).send({
-            message: err.message || "sme error"
+exports.findOne = (req, res) => {
+  console.log(req.query.user_id);
+  
+  User.findById(req.query.user_id, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Task with id ${req.query.user_id}.`
         });
-        else res.send(data);
-    })
-  }
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Task with id " + req.params.user_id
+        });
+      }
+    } else res.send(data);
+  });
+};
 
+  exports.findAll = async (req, res) => {
+    const user_id = req.query.user_id;
+    User.getAll(user_id, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message || "Error retrieving users"
+        });
+      } else {
+        res.send(data);
+      }
+    });
+  };
 
 
 exports.update = async (req, res) => {
