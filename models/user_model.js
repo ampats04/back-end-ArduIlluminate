@@ -27,7 +27,7 @@ userModel.create = (newUser, result) => {
 
 userModel.findById = (user_id, result) => {
     console.log("The id is",user_id);
-    db_con.query(`SELECT * FROM users WHERE user_id = ${user_id}`, (err, res) => {
+    db_con.query(`SELECT * FROM users WHERE user_id = '${user_id}'`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
