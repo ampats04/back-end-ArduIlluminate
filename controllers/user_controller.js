@@ -52,18 +52,6 @@ exports.findOne = async (req, res) => {
   });
 };
 
-  exports.findAll = (req, res) => {
-    const user_id = req.query.user_id;
-    User.getAll(user_id, (err, data) => {
-      if (err) {
-        res.status(500).send({
-          message: err.message || "Error retrieving users"
-        });
-      } else {
-        res.send(data);
-      }
-    });
-  };
 
 
 exports.update = async (req, res) => {

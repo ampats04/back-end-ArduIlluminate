@@ -45,21 +45,6 @@ userModel.findById = (user_id, result) => {
   
   };
 
-userModel.getAll = (user_id, result) => {
-    let query = "SELECT * FROM users";
-    if (user_id) {
-      query += ` WHERE user_id = '${user_id}'`;
-    }
-    db_con.query(query, (err, res) => {
-      if (err) {
-        console.log("Error fetching users: ", err);
-        result(err, null);
-      } else {
-        console.log("Fetched Users: ", res);
-        result(null, res);
-      }
-    });
-  };
 
 userModel.updateById = (user_id, user, result) => {
 

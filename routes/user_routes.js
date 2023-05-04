@@ -7,8 +7,6 @@ const router = express.Router();
 
 router.post('/add', userController.create);
 
-router.get('/retrieve', userController.findAll);
-
 router.get('/one/:user_id', userController.findOne)
 
 router.put('/update/:userId', userController.update);
