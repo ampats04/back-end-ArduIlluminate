@@ -35,8 +35,8 @@ exports.create = (req, res) => {
 };
 
 exports.findOne = async (req, res) => {
-  console.log(req.params.user_id);
-  
+
+  const {user_id} = req.params;
   User.findById(req.params.user_id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
