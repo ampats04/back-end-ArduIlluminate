@@ -34,9 +34,8 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findOne = async (req, res) => {
+exports.findOne = (req, res) => {
 
-  const {user_id} = req.params;
   User.findById(req.params.user_id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
@@ -53,28 +52,44 @@ exports.findOne = async (req, res) => {
 };
 
 
+exports.update = (req, res) => {
 
-exports.update = async (req, res) => {
-    try {
-      const { userId } = req.params;
-  
-      const updatedUser = await User.updateById(userId, req.body);
-  
-      if (updatedUser.affectedRows === 0) {
+  User.updateById(req.params.user_id, (err,data) => {
+    if(err){
+      if(err.affectedRows === 0){
         res.status(404).send({
-          message: `User with id ${userId} not found`,
+          message: `User with id ${req.params.user_id} not found`,
         });
-      } else {
-        res.status(200).send({
-          message: `User with id ${userId} updated successfully`,
-        });
+      } else{
+       res.status(200).send({
+        message: `User with id ${req.params.user_id} updated succesfully`,
+       })
       }
-    } catch (err) {
-      res.status(500).send({
-        message: err.message || "Some error occurred while updating the user.",
-      });
     }
-  };
+  })
+}
+
+// exports.update =  (req, res) => {
+//     try {
+//       const { userId } = req.params;
+  
+//       const updatedUser =  User.updateById(userId, req.body);
+  
+//       if (updatedUser.affectedRows == 0) {
+//         res.status(404).send({
+//           message: `User with id ${userId} not found`,
+//         });
+//       } else {
+//         res.status(200).send({
+//           message: `User with id ${userId} updated successfully`,
+//         });
+//       }
+//     } catch (err) {
+//       res.status(500).send({
+//         message: err.message || "Some error occurred while updating the user.",
+//       });
+//     }
+//   };
 
 
 exports.delete = (req,res) => {
