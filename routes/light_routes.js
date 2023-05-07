@@ -5,11 +5,11 @@ const lightController = require('../controllers/light_controller');
 
 const router = express.Router();
 
-router.post('/', lightController.create);
+router.post('/add', lightController.create);
 
-router.get('/', lightController.findAll);
+router.get('/one/:light_id', lightController.findAll);
 
-router.put('/update/:lightId', lightController.update);
+router.put('/update/:light_id', lightController.update);
 
 router.delete('/delete', lightController.delete);
 

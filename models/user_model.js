@@ -46,7 +46,7 @@ userModel.findById = (user_id, result) => {
   };
 
 
-userModel.updateById = (user_id, user, result) => {
+  userModel.updateById = (user_id, user, result) => {
 
     db_con.query(
         "UPDATE users SET  name = ?, birthdate = ?, username = ? WHERE user_id = ?",
@@ -54,7 +54,7 @@ userModel.updateById = (user_id, user, result) => {
         (err,res) => {
             if(err){
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
 
@@ -63,7 +63,7 @@ userModel.updateById = (user_id, user, result) => {
                 return;
             }
             console.log("updated user: ", {user_id: user_id, ...user});
-            return(null, {user_id: user_id, ...user});
+            result(null, {user_id: user_id, ...user});
         }
     );
 }

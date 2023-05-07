@@ -1,12 +1,9 @@
 var qs = require('querystring');
 const User = require("../models/user_model");
 
-
-
 exports.create = (req, res) => {
 
     console.log(req.body);
-
 
     if(!req.body){
         res.status(400).send({
@@ -51,37 +48,19 @@ exports.findOne = (req, res) => {
   });
 };
 
-
-exports.update = (req, res) => {
-
-  User.updateById(req.params.user_id, (err,data) => {
-    if(err){
-      if(err.affectedRows === 0){
-        res.status(404).send({
-          message: `User with id ${req.params.user_id} not found`,
-        });
-      } else{
-       res.status(200).send({
-        message: `User with id ${req.params.user_id} updated succesfully`,
-       })
-      }
-    }
-  })
-}
-
 // exports.update =  (req, res) => {
 //     try {
-//       const { userId } = req.params;
+//       const { user_id } = req.params;
   
-//       const updatedUser =  User.updateById(userId, req.body);
+//       const updatedUser =  User.updateById(user_id, req.body);
   
 //       if (updatedUser.affectedRows == 0) {
 //         res.status(404).send({
-//           message: `User with id ${userId} not found`,
+//           message: `User with id ${user_id} not found`,
 //         });
 //       } else {
 //         res.status(200).send({
-//           message: `User with id ${userId} updated successfully`,
+//           message: `User with id ${user_id} updated successfully`,
 //         });
 //       }
 //     } catch (err) {
@@ -91,6 +70,33 @@ exports.update = (req, res) => {
 //     }
 //   };
 
+exports.update =  (req, res) => {
+  try {
+    const { user_id } = req.params;
+
+    User.updateById(user_id, req.body, (err, result) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message || "Some error occurred while updating the user.",
+        });
+      } else {
+        if (result === null) {
+          res.status(404).send({
+            message: `User with id ${user_id} not found`,
+          });
+        } else {
+          res.status(200).send({
+            message: `User with id ${user_id} updated successfully`,
+          });
+        }
+      }
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "Some error occurred while updating the user.",
+    });
+  }
+};
 
 exports.delete = (req,res) => {
     User.remove(req.query.id, (err,data) => {
