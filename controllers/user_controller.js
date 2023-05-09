@@ -31,6 +31,10 @@ exports.create = (req, res) => {
     });
 };
 
+exports.getUserId = () => {
+  return user_id;
+};
+
 exports.findOne = (req, res) => {
 
   User.findById(req.params.user_id, (err, data) => {
@@ -47,28 +51,6 @@ exports.findOne = (req, res) => {
     } else res.send(data);
   });
 };
-
-// exports.update =  (req, res) => {
-//     try {
-//       const { user_id } = req.params;
-  
-//       const updatedUser =  User.updateById(user_id, req.body);
-  
-//       if (updatedUser.affectedRows == 0) {
-//         res.status(404).send({
-//           message: `User with id ${user_id} not found`,
-//         });
-//       } else {
-//         res.status(200).send({
-//           message: `User with id ${user_id} updated successfully`,
-//         });
-//       }
-//     } catch (err) {
-//       res.status(500).send({
-//         message: err.message || "Some error occurred while updating the user.",
-//       });
-//     }
-//   };
 
 exports.update =  (req, res) => {
   try {

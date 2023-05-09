@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/add', lightController.create);
 
-router.get('/one/:light_id', lightController.findAll);
+router.get('/one/:light_id', lightController.findOne);
 
 router.put('/update/:light_id', lightController.update);
 

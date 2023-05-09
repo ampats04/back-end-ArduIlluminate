@@ -1,8 +1,9 @@
 const db_con = require("../database/database");
 
 
-const lightModel = function(light){
 
+const lightModel = function(light){
+    
    this.model = light.model;
    this.manufacturer = light.manufacturer;
    this.install_date = light.install_date;
@@ -10,37 +11,49 @@ const lightModel = function(light){
 
 };
 
-
-lightModel.create = (newLight, result) => {
-    db_con.query("INSERT INTO lights SET ?", newLight, (err,res) => {
-            if(err){
-                console.log("error: ", err);
-                result(err,null);
-                return;
-            }
-        console.log("Created Light: ", {light_id: res.lightId, ...newLight});
-        console.log("added new Light")
-       
+lightModel.create = (userID, light, callback) => {
+    const sql = "INSERT INTO lights (userID, model, manufacturer, install_date, power_cons) VALUES (?, ?, ?, ?, ?)";
+    const values = [userID, light.model, light.manufacturer, light.install_date, light.power_cons];
+  
+    db_con.query(sql, values, (error, results, fields) => {
+      if (error) {
+        console.error(error);
+        callback(error, null);
+        return;
+      }
+  
+      const createdLight = {
+        userID: userID,
+        model: light.model,
+        manufacturer: light.manufacturer,
+        install_date: light.install_date,
+        power_cons: light.power_cons
+      };
+  
+      console.log("Created Light: ", createdLight);
+      callback(null, createdLight);
     });
-}
-
-lightModel.getAll = (light_id,result) => {
-
-    let query = "SELECT * FROM lights";
-
-    if(light_id){
-        query += `WHERE user_id LIKE '%${light_id}%'`;
-    }
-    db_con.query(query, (err,res) => {
-        if(err){
-            console.log("error: ", err);
-            result(null,err);
-            return;
-        }
-        console.log("Light: ", res);
-        return(null, err);
+  };
+  
+  lightModel.findById = (light_id, result) => {
+    console.log("The id is",light_id);
+    db_con.query(`SELECT * FROM lights WHERE light_id = '${light_id}'`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+      if (res.length) {
+        console.log("found light_id: ", res[0]);
+        result(null, res[0]);
+        return;
+      }
+      // not found Task with the id
+      result({ kind: "not_found" }, null);
+  
     });
-};
+  
+  };
 
 lightModel.updateById = (light_id, light, result) => {
 

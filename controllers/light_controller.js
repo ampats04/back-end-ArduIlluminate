@@ -1,49 +1,55 @@
 var qs = require('querystring');
 const Light = require("../models/light_model");
 
+
+
 exports.create = (req, res) => {
-
-    console.log(req.body);
-
-    //validate
-
-    if(!req.body){
+    if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
-
+        return;
     }
 
-    const light = new Light({
-
+    const newLight = new Light({
         model: req.body.model,
         manufacturer: req.body.manufacturer,
         install_date: req.body.install_date,
         power_cons: req.body.power_cons,
-
-
     });
 
-    Light.create(light, (err,data) => {
-        if(err)
+    
+
+    const userID = req.body.user_id; // Get userID from the logged-in user
+
+    Light.create(userID, newLight, (err, data) => {
+        if (err) {
             res.status(500).send({
-                message: err.message || "Some error occured while creating the Task."
+                message: err.message || "Some error occurred while creating the Task."
             });
-        else res.send(data);
-        
+            return;
+        }
+        res.send(data);
     });
 };
 
-exports.findAll = (req,res) => {
-    const title = req.query.name;
-    User.getAll(title, (err,data) => {
-        if(err)
-            res.status(500).send({
-                message: err.message || "Some error occured while retrieving tasks."
-            });
-        else res.send(data);
+exports.findOne = (req, res) => {
+
+    Light.findById(req.params.light_id, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found User with id ${req.params.light_id}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving User with id " + req.params.light_id
+          });
+        }
+      } else res.send(data);
     });
-};
+  };
+  
 
 exports.update = (req,res) => {
     if(!req.body){
