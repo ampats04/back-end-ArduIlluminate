@@ -15,7 +15,7 @@ exports.create = (req, res) => {
         model: req.body.model,
         manufacturer: req.body.manufacturer,
         install_date: req.body.install_date,
-        power_cons: req.body.power_cons,
+        watt: req.body.watt,
     });
 
     
@@ -29,7 +29,10 @@ exports.create = (req, res) => {
             });
             return;
         }
-        res.send(data);
+        const light_id = data.insertId;
+
+    // Send the light_id back as a response
+    res.send({ light_id });
     });
 };
 
@@ -39,11 +42,11 @@ exports.findOne = (req, res) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found User with id ${req.params.light_id}.`
+            message: `Not found LIGHT with id ${req.params.light_id}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving User with id " + req.params.light_id
+            message: "Error retrieving LIGHT with id " + req.params.light_id
           });
         }
       } else res.send(data);

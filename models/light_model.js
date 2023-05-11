@@ -7,13 +7,13 @@ const lightModel = function(light){
    this.model = light.model;
    this.manufacturer = light.manufacturer;
    this.install_date = light.install_date;
-   this.power_cons = light.power_cons;
+   this.watt = light.watt;
 
 };
 
 lightModel.create = (userID, light, callback) => {
-    const sql = "INSERT INTO lights (userID, model, manufacturer, install_date, power_cons) VALUES (?, ?, ?, ?, ?)";
-    const values = [userID, light.model, light.manufacturer, light.install_date, light.power_cons];
+    const sql = "INSERT INTO lights (userID, model, manufacturer, install_date, watt) VALUES (?, ?, ?, ?, ?)";
+    const values = [userID, light.model, light.manufacturer, light.install_date, light.watt];
   
     db_con.query(sql, values, (error, results, fields) => {
       if (error) {
@@ -23,14 +23,16 @@ lightModel.create = (userID, light, callback) => {
       }
   
       const createdLight = {
+        light_id: results.insertId, 
         userID: userID,
         model: light.model,
         manufacturer: light.manufacturer,
         install_date: light.install_date,
-        power_cons: light.power_cons
+        watt: light.watt
       };
   
       console.log("Created Light: ", createdLight);
+      console.log(results.insertId)
       callback(null, createdLight);
     });
   };
