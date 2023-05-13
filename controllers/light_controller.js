@@ -38,7 +38,9 @@ exports.create = (req, res) => {
 
 exports.findOne = (req, res) => {
 
-    Light.findById(req.params.light_id, (err, data) => {
+    const {user_id, light_id} = req.params;
+
+    Light.findById(user_id, light_id, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({

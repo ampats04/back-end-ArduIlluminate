@@ -37,9 +37,13 @@ lightModel.create = (userID, light, callback) => {
     });
   };
   
-  lightModel.findById = (light_id, result) => {
-    console.log("The id is",light_id);
-    db_con.query(`SELECT * FROM lights WHERE light_id = '${light_id}'`, (err, res) => {
+  lightModel.findById = (user_id, light_id, result) => {
+
+    console.log("User Id: ", user_id);
+    console.log("Light id is",light_id);
+
+    db_con.query(`SELECT * FROM lights WHERE userID = '${user_id}' LIMIT 1`, 
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
