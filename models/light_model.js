@@ -61,28 +61,30 @@ lightModel.create = (userID, light, callback) => {
   
   };
 
-lightModel.updateById = (light_id, light, result) => {
-
+  lightModel.updateById = (userId, lightId, light, result) => {
+    print('This is the user_id' + userId);
+    print('This is the light_id' + lightId);
+    
     db_con.query(
-        "UPDATE lights SET  model = ?, manufacturer = ?, install_date = ?, power_cons = ? WHERE light_id = ?",
-        [ light.model, light.manufacturer, light.install_date,light.power_cons, light_id],
-        (err,res) => {
-            if(err){
-                console.log("error: ", err);
-                result(null, err);
-                return;
-            }
-
-            if(res.affectedRows == 0) {
-                result({kind: "not_found"}, null);
-                return;
-            }
-            console.log("updated lights: ", {light_id: light_id, ...light});
-            return(null, {light_id: light_id, ...light});
+      "UPDATE lights SET model = ?, manufacturer = ?, install_date = ?, watt = ? WHERE userID = ? AND light_id = ?",
+      [light.model, light.manufacturer, light.install_date, light.watt, userId, lightId],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
         }
+  
+        if (res.affectedRows == 0) {
+          result({ kind: "not_found" }, null);
+          return;
+        }
+  
+        console.log("updated lights: ", { light_id: lightId, ...light });
+        result(null, { light_id: lightId, ...light });
+      }
     );
-}
-
+  };
 
 lightModel.remove = (light_id, result) => {
     db_con.query("DELETE FROM users WHERE light_id =?", light_id, (err,res) => {

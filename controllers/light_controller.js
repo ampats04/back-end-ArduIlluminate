@@ -56,33 +56,32 @@ exports.findOne = (req, res) => {
   };
   
 
-exports.update = (req,res) => {
-    if(!req.body){
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
+  exports.update = (req, res) => {
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content can not be empty!",
+      });
     }
-    console.log(req.body);
-    Light.updateById(
-        req.query.light_id,
-        new User(req.body),
-        (err,data) => {
-            if(err){
-                if (err.kind == "not found"){
-                    res.status(404).send({
-                        message: 'Not found Tutorial with light_id ${req.query.light_id}.'
-                    });
-                } else{
-                    res.status(500).send({
-                        message: "Error updating tutorial with light_id" + req.query.light_id
-                    });
-                }
-               
-            } else res.send(data);
+  
+  
+    const {userId, lightId} = req.params;
+    
+    Light.updateById(userId, lightId, new User(req.body), (err, data) => {
+      if (err) {
+        if (err.kind == "not_found") {
+          res.status(404).send({
+            message: `Not found Tutorial with user_id ${userId} and light_id ${lightId}.`,
+          });
+        } else {
+          res.status(500).send({
+            message: "Error updating tutorial with user_id " + userId + " and light_id " + lightId,
+          });
         }
-    );
-};
-
+      } else {
+        res.send(data);
+      }
+    });
+  };
 exports.delete = (req,res) => {
     Light.remove(req.query.id, (err,data) => {
         if(err){

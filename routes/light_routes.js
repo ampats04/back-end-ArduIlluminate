@@ -9,7 +9,7 @@ router.post('/add', lightController.create);
 
 router.get('/one/:user_id', lightController.findOne);
 
-router.put('/update/:light_id', lightController.update);
+router.put('/update/:user_id/:light_id', lightController.update);
 
 router.delete('/delete', lightController.delete);
 

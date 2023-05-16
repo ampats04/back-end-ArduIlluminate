@@ -1,7 +1,10 @@
-GET http://localhost:8000/api/light/one/9 HTTP/1.1
+PUT http://localhost:8000/api/light/wbnxaIw7Jwg20jgVlHzXKxlQlEi2/12 HTTP/1.1
 Content-Type: application/json
 
 {       
- 
+        "model" : "Update ABC",
+        "manufacturer" : "update abc",
+        "install_date" : "2001-03-01",
+        "watt" : 60.3
 }
 
