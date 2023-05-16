@@ -66,11 +66,11 @@ exports.findOne = (req, res) => {
   
     const {userId, lightId} = req.params;
 
-    Light.updateById(userId, lightId, new User(req.body), (err, data) => {
+    Light.updateById(userId, lightId, req.body, (err, data) => {
       if (err) {
         if (err.kind == "not_found") {
           res.status(404).send({
-            message: `Not found Tutorial with userID ${userId} and light_id ${lightId}.`,
+            message: `Not found Light with userID ${userId} and light_id ${lightId}.`,
           });
         } else {
           res.status(500).send({
@@ -82,6 +82,8 @@ exports.findOne = (req, res) => {
       }
     });
   };
+
+
 exports.delete = (req,res) => {
     Light.remove(req.query.id, (err,data) => {
         if(err){
