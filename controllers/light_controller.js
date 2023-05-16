@@ -20,9 +20,9 @@ exports.create = (req, res) => {
 
     
 
-    const userID = req.body.user_id; // Get userID from the logged-in user
+    const {user_id} = req.body; // Get userID from the logged-in user
 
-    Light.create(userID, newLight, (err, data) => {
+    Light.create(user_id, newLight, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occurred while creating the Task."
@@ -44,11 +44,11 @@ exports.findOne = (req, res) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found LIGHT with id ${req.params.light_id}.`
+            message: `Not found LIGHT with id ${light_id}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving LIGHT with id " + req.params.light_id
+            message: "Error retrieving LIGHT with id " + light_id
           });
         }
       } else res.send(data);
@@ -62,7 +62,6 @@ exports.update = (req,res) => {
             message: "Content can not be empty!"
         });
     }
-
     console.log(req.body);
     Light.updateById(
         req.query.light_id,

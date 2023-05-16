@@ -37,15 +37,17 @@ exports.getUserId = () => {
 
 exports.findOne = (req, res) => {
 
-  User.findById(req.params.user_id, (err, data) => {
+    const {user_id} = req.params;
+
+  User.findById(user_id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found User with id ${req.params.user_id}.`
+          message: `Not found User with id ${user_id}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving User with id " + req.params.user_id
+          message: "Error retrieving User with id " + user_id
         });
       }
     } else res.send(data);
