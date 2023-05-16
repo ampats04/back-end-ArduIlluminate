@@ -62,9 +62,10 @@ lightModel.create = (userID, light, callback) => {
   };
 
   lightModel.updateById = (userId, lightId, light, result) => {
+    
     print('This is the user_id' + userId);
     print('This is the light_id' + lightId);
-    
+
     db_con.query(
       "UPDATE lights SET model = ?, manufacturer = ?, install_date = ?, watt = ? WHERE userID = ? AND light_id = ?",
       [light.model, light.manufacturer, light.install_date, light.watt, userId, lightId],
