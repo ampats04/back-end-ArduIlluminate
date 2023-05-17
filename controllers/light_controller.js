@@ -48,7 +48,7 @@ exports.findOne = (req, res) => {
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving LIGHT with id " + light_id
+            message: "Error retrieving LIGHT with id  ${light_id}"
           });
         }
       } else res.send(data);
@@ -63,18 +63,18 @@ exports.findOne = (req, res) => {
       });
     }
   
-  
-    const {userId, lightId} = req.params;
+    const {user_id, lightId} = req.params;
 
-    Light.updateById(userId, lightId, req.body, (err, data) => {
+
+    Light.updateById(user_id, lightId, req.body, (err, data) => {
       if (err) {
         if (err.kind == "not_found") {
           res.status(404).send({
-            message: `Not found Light with userID ${userId} and light_id ${lightId}.`,
+            message: `Not found Light with userID ${user_id} and light_id ${lightId}.`,
           });
         } else {
           res.status(500).send({
-            message: "Error updating tutorial with userID " + userId + " and light_id " + lightId,
+            message: "Error updating tutorial with userID " + user_id + " and light_id " + lightId,
           });
         }
       } else {

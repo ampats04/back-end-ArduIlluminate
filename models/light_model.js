@@ -61,14 +61,12 @@ lightModel.create = (userID, light, callback) => {
   
   };
 
-  lightModel.updateById = (userId, lightId, light, result) => {
-    
-    print('This is the user_id' + userId);
-    print('This is the light_id' + lightId);
+  lightModel.updateById = (user_id, light_id, light, result) => {
+
 
     db_con.query(
       "UPDATE lights SET model = ?, manufacturer = ?, install_date = ?, watt = ? WHERE userID = ? AND light_id = ?",
-      [light.model, light.manufacturer, light.install_date, light.watt, userId, lightId],
+      [light.model, light.manufacturer, light.install_date, light.watt, user_id, light_id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -81,8 +79,8 @@ lightModel.create = (userID, light, callback) => {
           return;
         }
   
-        console.log("updated lights: ", { light_id: lightId, ...light });
-        result(null, { light_id: lightId, ...light });
+        console.log("updated lights: ", { light_id: light_id, ...light });
+        result(null, { light_id: light_id, ...light });
       }
     );
   };
