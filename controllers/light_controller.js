@@ -63,14 +63,14 @@ exports.findOne = (req, res) => {
       });
     }
   
-    const {user_id, lightId} = req.params;
+    const {user_id, light_id} = req.params;
 
-
-    Light.updateById(user_id, lightId, req.body, (err, data) => {
+    console.log(req.params);
+    Light.updateById(user_id, parseInt(light_id), req.body, (err, data) => {
       if (err) {
         if (err.kind == "not_found") {
           res.status(404).send({
-            message: `Not found Light with userID ${user_id} and light_id ${lightId}.`,
+            message: `Not found Light with userID ${user_id} and light_id ${light_id}.`,
           });
         } else {
           res.status(500).send({
